@@ -1,0 +1,18 @@
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_proto_grpc//scala:defs.bzl", "scala_proto_library")
+
+proto_library(
+    name = "example_proto",
+    srcs = [
+        "example.proto",
+        "feature.proto",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+scala_proto_library(
+    name = "example_scala_proto",
+    importpath = "github.com/tensorflow/core/example",
+    protos = [":example_proto"],
+    visibility = ["//visibility:public"],
+)

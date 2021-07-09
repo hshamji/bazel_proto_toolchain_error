@@ -1,0 +1,30 @@
+############
+# Builds   #
+############
+
+# Local Disk Cache - https://docs.bazel.build/versions/master/remote-caching.html#disk-cache
+build --disk_cache=~/development/carousel/.build-disk-cache/
+
+# Specify the max number of jobs so it is not infinite
+build --jobs 20
+
+build --color yes
+build --show_timestamps
+
+# Make Bazel sandbox more restrict. Value for PATH is now static and sandbox does
+# not inherit LD_LIBRARY_PATH or TMPDIR
+# build --incompatible_strict_action_env
+
+# Restrict workers from reading files not declared as inputs (which is faster)
+build --worker_sandboxing
+
+############
+# Scala    #
+############
+
+build --nojava_header_compilation
+build --nouse_ijars
+
+build --strategy=Scalac=worker --strict_java_deps=error
+test --strategy=Scalac=worker
+

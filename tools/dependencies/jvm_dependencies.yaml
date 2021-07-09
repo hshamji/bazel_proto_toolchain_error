@@ -1,0 +1,95 @@
+options:
+  buildHeader: [ "load(\"@io_bazel_rules_scala//scala:scala_import.bzl\", \"scala_import\")" ]
+  languages: [ "java", "scala:2.12.13" ]
+  resolvers:
+    - id: "mavencentral"
+      type: "default"
+      url: https://repo.maven.apache.org/maven2/
+    - id: "jcenter"
+      type: "default"
+      url: https://jcenter.bintray.com/
+#  strictVisibility: true
+  thirdPartyDirectory: ""
+
+dependencies:
+
+  com.lihaoyi:
+    fansi:
+      lang: scala
+      version: "0.2.9"
+    pprint:
+      lang: scala
+      version: "0.5.3"
+
+  com.thesamet.scalapb:
+    compilerplugin:
+      lang: scala
+      version: "0.10.10"
+    lenses:
+      lang: scala
+      version: "0.10.10"
+    protoc-bridge:
+      lang: scala
+      version: "0.9.2"
+    scalapb:
+      lang: scala
+      modules: [ "runtime", "runtime-grpc" ]
+      version: "0.10.10"
+    scalapbc:
+      lang: scala
+      version: "0.10.10"
+
+  co.fs2:
+    fs2:
+      lang: scala
+      modules: [ "core", "io" ]
+      version: "2.5.6"
+
+  com.google.protobuf:
+    protobuf-java:
+      lang: java
+      version: "3.12.2"
+
+  io.grpc:
+    grpc-netty:
+      lang: java
+      version: "1.36.0"
+      visibility: [ "//visibility:public" ]
+    grpc:
+      lang: java
+      modules: [ "api", "census", "context", "core", "netty-shaded", "protobuf", "stub", "services" ]
+      version: "1.36.0"
+      visibility: [ "//visibility:public" ]
+
+  org.scalameta:
+    scalafmt-cli:
+      lang: scala
+      version: "2.3.0"
+
+  org.scalanlp:
+    breeze:
+      lang: scala
+      version: "1.2"
+
+  org.tensorflow:
+    tensorflow:
+      lang: java
+      version: "1.15.0"
+
+  org.scala-lang:
+    scala-library:
+      lang: java
+    scala-reflect:
+      lang: java
+    scala-compiler:
+      lang: java
+      version: 2.12.13
+
+replacements:
+  org.scala-lang:
+    scala-library:
+      lang: java
+      target: "@io_bazel_rules_scala_scala_library"
+    scala-reflect:
+      lang: java
+      target: "@io_bazel_rules_scala_scala_reflect"

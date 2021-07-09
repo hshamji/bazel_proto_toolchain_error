@@ -1,0 +1,57 @@
+load("@io_bazel_rules_scala//scala_proto:scala_proto_toolchain.bzl", "scala_proto_toolchain")
+
+# Configure scala_proto_deps_toolchain
+load("@io_bazel_rules_scala//scala_proto:scala_proto_toolchain.bzl", "scala_proto_deps_toolchain")
+load("@io_bazel_rules_scala//scala:providers.bzl", "declare_deps_provider")
+
+
+declare_deps_provider(
+    name = "scalapb_worker_deps_provider",
+    deps_id = "scalapb_worker_deps",
+    deps = [
+        "@3rdparty_jvm//com/google/protobuf:protobuf_java",
+        "@3rdparty_jvm//com/thesamet/scalapb:compilerplugin",
+        "@3rdparty_jvm//com/thesamet/scalapb:protoc_bridge",
+    ],
+)
+
+declare_deps_provider(
+    name = "scalapb_compile_deps_provider",
+    deps_id = "scalapb_compile_deps",
+    deps = [
+        "@3rdparty_jvm//com/google/protobuf:protobuf_java",
+        "@3rdparty_jvm//com/thesamet/scalapb:lenses",
+        "@3rdparty_jvm//com/thesamet/scalapb:scalapb_runtime",
+        "@3rdparty_jvm//com/thesamet/scalapb:scalapb_runtime_grpc",
+        "@3rdparty_jvm//io/grpc:grpc_api",
+        "@3rdparty_jvm//io/grpc:grpc_context",
+        "@3rdparty_jvm//io/grpc:grpc_core",
+        "@3rdparty_jvm//io/grpc:grpc_protobuf",
+        "@3rdparty_jvm//io/grpc:grpc_stub",
+        "@3rdparty_jvm//org/scala_lang:scala_compiler",
+        "@3rdparty_jvm//org/scala_lang:scala_library",
+        "@3rdparty_jvm//org/scala_lang:scala_reflect",
+    ],
+)
+
+declare_deps_provider(
+    name = "scalapb_grpc_deps_provider",
+    deps_id = "scalapb_grpc_deps",
+    deps = [],
+)
+
+scala_proto_deps_toolchain(
+    name = "scala_deps_toolchain_def",
+    visibility = ["//visibility:public"],
+    dep_providers = [
+        ":scalapb_worker_deps_provider",
+        ":scalapb_compile_deps_provider",
+        ":scalapb_grpc_deps_provider",
+    ],
+)
+
+toolchain(
+    name = "scala_proto_deps_toolchain",
+    toolchain = ":scala_deps_toolchain_def",
+    toolchain_type = "@io_bazel_rules_scala//scala_proto:deps_toolchain_type",
+)

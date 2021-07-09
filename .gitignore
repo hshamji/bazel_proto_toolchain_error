@@ -1,0 +1,20 @@
+.DS_Store
+
+# Intellij
+.idea
+
+# Bazel plugin
+.ijwb
+
+# Bazel outputs
+bazel-*
+!bazel-run.sh
+
+target/
+*.log
+
+# Bazel local disk cache
+.build-disk-cache
+
+# ignoring go.sum since its information is duplicated in 3rdparty/go_workspace.bzl
+go/go.sum
