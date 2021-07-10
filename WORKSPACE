@@ -106,13 +106,42 @@ load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
 
 scala_repositories()
 
-load("@io_bazel_rules_scala//scala_proto:scala_proto.bzl", "scala_proto_repositories")
-
-scala_proto_repositories()
-
 #load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
 
 #scala_register_toolchains()
+
+
+
+#------------START
+
+
+
+load("@io_bazel_rules_scala//scala_proto:scala_proto.bzl", "scala_proto_repositories")
+#This was hiding generating the same toolchains I wanted. Recreating this manually
+#scala_proto_repositories()
+
+load(
+    "@io_bazel_rules_scala//scala:scala_cross_version.bzl",
+    _default_maven_server_urls = "default_maven_server_urls",
+)
+load(
+    "@io_bazel_rules_scala//scala_proto/private:scala_proto_default_repositories.bzl",
+    "scala_proto_default_repositories",
+)
+
+maven_servers = _default_maven_server_urls()
+scala_proto_default_repositories(maven_servers)
+
+load("//tools/build_rules:check_create.bzl", "check_create")
+check_create()
+
+
+
+
+# ------------ END
+
+
+
 
 # setup ScalaTest toolchain and dependencies
 load("@io_bazel_rules_scala//testing:scalatest.bzl", "scalatest_repositories", "scalatest_toolchain")
@@ -134,7 +163,8 @@ build_external_workspace(name = "3rdparty_jvm")
 
 scala_deps()
 
-register_toolchains("//toolchains:scala_proto_deps_toolchain")
+# register custom toolchain
+#register_toolchains("//toolchains:scala_proto_deps_toolchain")
 
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
 new_git_repository(
