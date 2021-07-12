@@ -175,27 +175,27 @@ repositories(
 
 bind(
     name = "io_bazel_rules_scala/dependency/proto/scalapb_plugin",
-    actual = "@scala_proto_rules_scalapb_plugin",
+    actual = "@3rdparty_jvm//com/thesamet/scalapb:compilerplugin",
 )
 
 bind(
     name = "io_bazel_rules_scala/dependency/proto/protoc_bridge",
-    actual = "@scala_proto_rules_protoc_bridge",
+    actual = "@3rdparty_jvm//com/thesamet/scalapb:protoc_bridge",
 )
 
 bind(
     name = "io_bazel_rules_scala/dependency/proto/scalapb_runtime",
-    actual = "@scala_proto_rules_scalapb_runtime",
+    actual = "@3rdparty_jvm//com/thesamet/scalapb:scalapb_runtime",
 )
 
 bind(
     name = "io_bazel_rules_scala/dependency/proto/scalapb_runtime_grpc",
-    actual = "@scala_proto_rules_scalapb_runtime_grpc",
+    actual = "@3rdparty_jvm//com/thesamet/scalapb:scalapb_runtime_grpc",
 )
 
 bind(
     name = "io_bazel_rules_scala/dependency/proto/scalapb_lenses",
-    actual = "@scala_proto_rules_scalapb_lenses",
+    actual = "@3rdparty_jvm//com/thesamet/scalapb:lenses",
 )
 
 bind(
@@ -205,22 +205,22 @@ bind(
 
 bind(
     name = "io_bazel_rules_scala/dependency/proto/grpc_core",
-    actual = "@scala_proto_rules_grpc_core//jar",
+    actual = "@3rdparty_jvm//io/grpc:grpc_core",
 )
 
 bind(
     name = "io_bazel_rules_scala/dependency/proto/grpc_api",
-    actual = "@scala_proto_rules_grpc_api//jar",
+    actual = "@3rdparty_jvm//io/grpc:grpc_api",
 )
 
 bind(
     name = "io_bazel_rules_scala/dependency/proto/grpc_stub",
-    actual = "@scala_proto_rules_grpc_stub//jar",
+    actual = "@3rdparty_jvm//io/grpc:grpc_stub",
 )
 
 bind(
     name = "io_bazel_rules_scala/dependency/proto/grpc_protobuf",
-    actual = "@scala_proto_rules_grpc_protobuf//jar",
+    actual = "@3rdparty_jvm//io/grpc:grpc_protobuf",
 )
 
 bind(
@@ -323,7 +323,7 @@ bind(
     actual = "@scala_proto_rules_opencensus_contrib_grpc_metrics//jar",
 )
 
-#register_toolchains("@io_bazel_rules_scala//scala_proto:default_deps_toolchain")
+register_toolchains("@io_bazel_rules_scala//scala_proto:default_deps_toolchain")
 
 
 
